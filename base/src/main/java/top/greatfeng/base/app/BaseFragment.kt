@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import top.greatfeng.base.utils.LogUtl
+import top.greatfeng.base.utils.LogUtil
 
 open class BaseFragment : Fragment() {
 
@@ -14,12 +14,12 @@ open class BaseFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        LogUtl.i(TAG, "onAttach: ")
+        LogUtil.i(TAG, "onAttach: ")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        LogUtl.i(TAG, "onCreate() called with: savedInstanceState = $savedInstanceState")
+        LogUtil.i(TAG, "onCreate() called with: savedInstanceState = $savedInstanceState")
     }
 
     override fun onCreateView(
@@ -27,40 +27,40 @@ open class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        LogUtl.i(TAG, "onCreateView: ")
+        LogUtil.i(TAG, "onCreateView: ")
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        LogUtl.i(TAG, "onViewCreated: ")
+        LogUtil.i(TAG, "onViewCreated: ")
     }
 
     override fun onStart() {
         super.onStart()
-        LogUtl.i(TAG, "onStart() called")
+        LogUtil.i(TAG, "onStart() called")
     }
 
 
     override fun onResume() {
         super.onResume()
-        LogUtl.i(TAG, "onResume() called")
+        LogUtil.i(TAG, "onResume() called")
     }
 
     override fun onPause() {
         super.onPause()
-        LogUtl.i(TAG, "onPause() called")
+        LogUtil.i(TAG, "onPause() called")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        LogUtl.i(TAG, "onSaveInstanceState() called with: outState = $outState")
+        LogUtil.i(TAG, "onSaveInstanceState() called with: outState = $outState")
     }
 
 
     override fun onStop() {
         super.onStop()
-        LogUtl.i(TAG, "onStop() called")
+        LogUtil.i(TAG, "onStop() called")
     }
 
     override fun onDestroyView() {
@@ -69,12 +69,12 @@ open class BaseFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        LogUtl.i(TAG, "onDestroy() called")
+        LogUtil.i(TAG, "onDestroy() called")
     }
 
     override fun onDetach() {
         super.onDetach()
-        LogUtl.i(TAG, "onDetach: ")
+        LogUtil.i(TAG, "onDetach: ")
     }
 
 

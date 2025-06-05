@@ -6,6 +6,6 @@ class App :BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
+        JniHelper.initJni()
     }
 }

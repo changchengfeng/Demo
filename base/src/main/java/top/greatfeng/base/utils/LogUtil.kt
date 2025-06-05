@@ -2,9 +2,13 @@ package top.greatfeng.base.utils
 
 import android.util.Log
 
-object LogUtl {
+object LogUtil {
 
-    private const val isPrint = true
+    var isPrint = true
+        get() = field
+        set(value) {
+            field = value
+        }
 
     fun v(tag: String, msg: String) {
         if (isPrint) {
@@ -39,6 +43,7 @@ object LogUtl {
     fun file(tag: String, msg: String) {
 
     }
+
     fun json(tag: String, msg: Any) {
 
     }
