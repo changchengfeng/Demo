@@ -1,12 +1,32 @@
 package top.greatfeng.viewmodel
 
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 abstract class BaseViewModel : ViewModel() {
 
-    override fun onCleared() {
-        super.onCleared()
+    protected val _uiState = MutableStateFlow<UiState>(UiState.Idle)
+
+    val uiState: StateFlow<UiState> = _uiState
+        get() = field
+
+    fun onCreateView() {
+
     }
 
-    abstract fun initViewModel()
+    fun onDestroyView() {
+
+    }
+
+
+    fun onCreate() {
+
+    }
+
+    fun onDestroy() {
+
+    }
+
+
 }

@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewbinding.ViewBinding
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import top.greatfeng.base.app.BaseFragment
 import java.lang.reflect.ParameterizedType
 
-abstract class ViewModelFragment<VM : BaseViewModel, VB : ViewBinding> : BaseFragment() {
+
+const val VARIABLE_ID = 1
+
+abstract class ViewModelFragment<VM : BaseViewModel, VB : ViewDataBinding> : BaseFragment() {
     protected lateinit var viewModel: VM
     protected lateinit var binding: VB
 
@@ -30,11 +35,26 @@ abstract class ViewModelFragment<VM : BaseViewModel, VB : ViewBinding> : BaseFra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(viewModelStore, defaultViewModelProviderFactory).get(
+        viewModel = ViewModelProvider(this).get(
             getViewModelCls()
-        ) as VM
-        viewModel.initViewModel()
+        )
+        viewModel.onCreateView()
+        binding.setLifecycleOwner(getViewLifecycleOwner())
+        binding.setVariable(VARIABLE_ID, this)
+        lifecycleScope.launch {
+            viewModel.uiState.collect { status ->
+                when (status) {
+                    UiState.Idle -> {}
+                    UiState.Loading -> {
+
+                    }
+                }
+            }
+        }
+        initView()
     }
+
+    abstract fun initView()
 
     fun getViewModelCls(): Class<VM> {
         var currentClass: Class<*>? = this::class.java
@@ -49,5 +69,11 @@ abstract class ViewModelFragment<VM : BaseViewModel, VB : ViewBinding> : BaseFra
             currentClass = currentClass.superclass
         }
         throw IllegalArgumentException("No BaseViewModel subclass found in generic parameters")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.unbind()
+        viewModel.onDestroyView()
     }
 }

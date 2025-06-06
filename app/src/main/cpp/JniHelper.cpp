@@ -88,8 +88,9 @@ void printObjClass(jobject jobj,JNIEnv * env){
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_top_greatfeng_demo_JniHelper_jniSetupClassloader(JNIEnv *env, jobject thiz, jclass clz) {
+Java_top_greatfeng_demo_JniHelper_jniSetupClassloader(JNIEnv *env, jobject thiz, jclass jcls) {
 
+    jclass  clz = env->GetObjectClass(jcls);
     jmethodID  classLoaderMid = env->GetMethodID(clz, "getClassLoader", "()Ljava/lang/ClassLoader;");
     classLoader = env->NewGlobalRef(env->CallObjectMethod(clz, classLoaderMid));
 }

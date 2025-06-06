@@ -18,8 +18,6 @@ object NetworkStatusUtil {
 
     private const val TAG = "NetworkStatusUtil"
 
-    const val AVAILABLE: Int = 0
-    const val UNAVAILABLE: Int = 1
 
     init {
         val connectivityManager: ConnectivityManager =
@@ -57,15 +55,12 @@ object NetworkStatusUtil {
     }
 
 
-     private suspend fun notifyNetworkState(){
+    private suspend fun notifyNetworkState() {
         _networkState.emit(if (isNetworkAvailable()) AVAILABLE else UNAVAILABLE)
     }
 
-   private val _networkState = MutableSharedFlow<Int>()
+    private val _networkState = MutableSharedFlow<Int>()
 
     val networkState: SharedFlow<Int> = _networkState
         get() = field
-
-
-
 }

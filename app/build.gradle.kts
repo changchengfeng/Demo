@@ -1,8 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.ksp)
 }
 
+hilt {
+    enableAggregatingTask = false
+}
 android {
     namespace = "top.greatfeng.demo"
     compileSdk = 35
@@ -41,6 +46,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -50,7 +56,19 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.retrofit)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+
     implementation(project(":base"))
+    implementation(project(":feature:user"))
+    implementation(project(":feature:settings"))
+    implementation(project(":common:permission"))
+    implementation(project(":common:network"))
+    implementation(project(":common:viewmodel"))
+    implementation(project(":common:dialog"))
+    implementation(project(":common:images"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

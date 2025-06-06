@@ -1,10 +1,13 @@
 package top.greatfeng.user.data
 
 import top.greatfeng.user.model.User
+import top.greatfeng.user.service.GitHubUser
 
 
-class RemoteUserDataSource : UserRepository {
+class RemoteUserDataSource(
+    private val service: GitHubUser
+) : UserRepository {
     override suspend fun getUser(username: String): User {
-        TODO("Not yet implemented")
+        return service.getUserInfo(username)
     }
 }

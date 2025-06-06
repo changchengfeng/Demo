@@ -7,5 +7,4 @@ import top.greatfeng.user.model.User
 interface GitHubUser {
     @GET("users/{username}")
     suspend fun getUserInfo(@Path("username") username: String): User
-
 }

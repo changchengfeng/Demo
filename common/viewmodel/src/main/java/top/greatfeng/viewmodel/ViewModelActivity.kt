@@ -1,13 +1,9 @@
 package top.greatfeng.viewmodel
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import top.greatfeng.base.app.BaseActivity
-import top.greatfeng.base.app.BaseFragment
 import java.lang.reflect.ParameterizedType
 
 abstract class ViewModelActivity<VM : BaseViewModel, VB : ViewBinding> : BaseActivity() {
@@ -19,11 +15,14 @@ abstract class ViewModelActivity<VM : BaseViewModel, VB : ViewBinding> : BaseAct
         super.onCreate(savedInstanceState)
         binding = getViewBinding()
         setContentView(binding.root)
-        viewModel = ViewModelProvider(viewModelStore, defaultViewModelProviderFactory).get(
+        viewModel = ViewModelProvider(this).get(
             getViewModelCls()
-        ) as VM
-        viewModel.initViewModel()
+        )
+        viewModel.onCreate()
+        initView()
     }
+
+    abstract fun initView()
 
 
     fun getViewModelCls(): Class<VM> {
@@ -39,5 +38,10 @@ abstract class ViewModelActivity<VM : BaseViewModel, VB : ViewBinding> : BaseAct
             currentClass = currentClass.superclass
         }
         throw IllegalArgumentException("No BaseViewModel subclass found in generic parameters")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onDestroy()
     }
 }
